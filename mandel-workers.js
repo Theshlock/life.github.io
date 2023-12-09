@@ -728,7 +728,7 @@ function menu() {
 		yRate - 0;
 		xnorm = -1.76877851023801;
 		ynorm = -0.00173889944794;
-		zoom = 100;
+		zoom = 10;
 		screenX = canvasWidth/2;
 		screenY = canvasHeight/2;
 	document.getElementById("play").style.display = "none";
@@ -736,6 +736,7 @@ function menu() {
 }
 
 function play() {
+	zoom = 10;
 	gamestate = "playing";
 	document.getElementById("menu").style.display = "none";
 	document.getElementById("play").style.display = "flex";
