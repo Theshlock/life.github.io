@@ -9,7 +9,7 @@
 var mousePressed = 0;
 var iterations = 1000;
 var maxBlockSize = 8;
-// var zoom = 100;
+var zoom = 100;
 
 const canvasWidth = 800*2;
 const canvasHeight = 600*2;
@@ -713,7 +713,7 @@ contextM = mc.getContext('2d');
 contextM.fillStyle = 'green';
 contextM.font = "24px Arial";
 
-var status
+var gamestate
 
 menu()
 
@@ -723,7 +723,7 @@ startRender(1,1);
 
 function menu() {
 	document.getElementById("pause").style.display = "none";
-	status="menu";
+	gamestate="menu";
 		xRate = 0;
 		yRate - 0;
 		xnorm = -1.76877851023801;
@@ -736,20 +736,20 @@ function menu() {
 }
 
 function play() {
-	status = "playing";
+	gamestate = "playing";
 	document.getElementById("menu").style.display = "none";
 	document.getElementById("play").style.display = "flex";
 }
 
 function pause() {
-	status = "paused"
+	gamestate = "paused"
 	document.getElementById("play").style.display = "none";
 	document.getElementById("pause").style.display = "flex";
 }
 
 function resume() {
 	time=Date.now();
-	status = "playing";
+	gamestate = "playing";
 	document.getElementById("pause").style.display = "none";
 	document.getElementById("play").style.display = "flex";
 }
@@ -795,20 +795,20 @@ function gameloop() {
 				currentPalette++;
 				changePalette();
 			} else {
-				status = "game over";
+				gamestate = "game over";
 			}
 		}
 		if (dimension >= dimensions) {
-			status = "game complete";
+			gamestate = "game complete";
 			score = Date.now()-startTime;
 		}
 	        window.requestAnimationFrame(gameloop);
-	} else if (status == "paused") {
+	} else if (gamestate == "paused") {
 		window.requestAnimationFrame(gameloop);
-	} else if (status == "game over") {
+	} else if (gamestate == "game over") {
 		contextM.fillText("Game over: You missed the portal", 400, 300);
 		window.requestAnimationFrame(gameloop);
-	} else if (status == "game complete") {
+	} else if (gamestate == "game complete") {
 		contextM.fillText("You won!", 400, 300);
 		window.requestAnimationFrame(gameloop);
 	}
