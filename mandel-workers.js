@@ -9,12 +9,16 @@
 var mousePressed = 0;
 var iterations = 1000;
 var maxBlockSize = 8;
-var zoom = 100;
+// var zoom = 100;
 
 const canvasWidth = 800*2;
 const canvasHeight = 600*2;
 const scaleFactor = 2;
 
+// I think that what you see most of the time is the coarse canvas
+// Refer to the original tool behaviour to see that the resolution is lower which would make sense to be 
+// referred to as coarse.
+// I.E. You cannot remove this
 const coarseWidth = canvasWidth/scaleFactor;
 const coarseHeight = canvasHeight/scaleFactor;
 
