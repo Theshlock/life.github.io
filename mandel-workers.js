@@ -740,6 +740,7 @@ function play() {
 	gamestate = "playing";
 	document.getElementById("menu").style.display = "none";
 	document.getElementById("play").style.display = "flex";
+	zoom = 10;
 }
 
 function pause() {
