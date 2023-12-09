@@ -649,7 +649,7 @@ function drawMandel()
 						if( blockSize[i] == 1 )
 							computeWorker[i].postMessage({ mandelBuffer:mandel[i].buffer, workerID:i, startLine:startLine, blockSize:blockSize[i], canvasWidth:canvasWidth, segmentHeight: chunkHeight, screenX:screenX, screenY:screenY, zoom:zoom, iterations:iterations, oneShot:0, smooth:smooth, smoothMandel:smoothMandel[i].buffer }, [mandel[i].buffer],[smoothMandel[i].buffer]);
 						else
-							computeWorker[i].postMessage({ mandelBuffer:mandel[i].buffer, workerID:i, startLine:startLine/scaleFactor, blockSize:blockSize[i], canvasWidth:coarseWidth, segmentHeight: chunkHeight/2, screenX:screenX/scaleFactor, screenY:screenY/scaleFactor, zoom:zoom/scaleFactor, iterations:iterations, oneShot:0, smooth:smooth, smoothMandel:smoothMandel[i].buffer }, [mandel[i].buffer], [smoothMandel[i].buffer]);
+							computeWorker[i].postMessage({ mandelBuffer:mandel[i].buffer, workerID:i, startLine:startLine/scaleFactor, blockSize:blockSize[i], canvasWidth:canvasWidth, segmentHeight: chunkHeight/2, screenX:screenX/scaleFactor, screenY:screenY/scaleFactor, zoom:zoom/scaleFactor, iterations:iterations, oneShot:0, smooth:smooth, smoothMandel:smoothMandel[i].buffer }, [mandel[i].buffer], [smoothMandel[i].buffer]);
 					}
 					else {
 						// Just redraw if we don't need to compute the fractal
