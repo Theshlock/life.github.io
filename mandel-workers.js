@@ -760,7 +760,7 @@ var touchDevice = ('ontouchstart' in document.documentElement);
 function gameloop() {
 	if (gamestate == "menu") {
 		zoom = 10;
-		gamestate = "menu1"
+		gamestate = "menu1";
 	} else if (gamestate == "menu1") {
 		zoom *= 1.01;
 		startRender(1,1);
@@ -769,7 +769,7 @@ function gameloop() {
 		screenY = canvasHeight/2;
 	} else if (gamestate == "playing") {
 		zoom = 10;
-		gamestate = "playing1"
+		gamestate = "playing1";
 	} else if (gamestate == "playing1") {
 		contextM.fillRect( xnorm , ynorm , 20 , 20 );
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ) - (20 + zoom/portalDepth*1000) / 2, (((portalY-ynorm) * zoom + 600) / 2 ) - (20 + zoom/portalDepth*1000) / 2, 20 + zoom/portalDepth*1000, 20 + zoom/portalDepth*1000 );
