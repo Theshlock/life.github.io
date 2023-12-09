@@ -9,8 +9,7 @@
 var mousePressed = 0;
 var iterations = 1000;
 var maxBlockSize = 8;
-
-var zoom = 100;
+// var zoom = 100;
 
 const canvasWidth = 800*2;
 const canvasHeight = 600*2;
@@ -714,7 +713,7 @@ contextM = mc.getContext('2d');
 contextM.fillStyle = 'green';
 contextM.font = "24px Arial";
 
-var gamestate
+var status
 
 menu()
 
@@ -724,7 +723,7 @@ startRender(1,1);
 
 function menu() {
 	document.getElementById("pause").style.display = "none";
-	gamestate="menu";
+	status="menu";
 		xRate = 0;
 		yRate - 0;
 		xnorm = -1.76877851023801;
@@ -737,20 +736,20 @@ function menu() {
 }
 
 function play() {
-	gamestate = "playing";
+	status = "playing";
 	document.getElementById("menu").style.display = "none";
 	document.getElementById("play").style.display = "flex";
 }
 
 function pause() {
-	gamestate = "paused"
+	status = "paused"
 	document.getElementById("play").style.display = "none";
 	document.getElementById("pause").style.display = "flex";
 }
 
 function resume() {
 	time=Date.now();
-	gamestate = "playing";
+	status = "playing";
 	document.getElementById("pause").style.display = "none";
 	document.getElementById("play").style.display = "flex";
 }
@@ -759,19 +758,12 @@ var touchDevice = ('ontouchstart' in document.documentElement);
 
 function gameloop() {
 	if (gamestate == "menu") {
-		zoom = 10;
-		gamestate = "menu1";
-	} else if (gamestate == "menu1") {
 		zoom *= 1.01;
 		startRender(1,1);
 		window.requestAnimationFrame(gameloop);
 		screenX = canvasWidth/2;
 		screenY = canvasHeight/2;
 	} else if (gamestate == "playing") {
-		zoom = 10;
-		gamestate = "playing1";
-		window.requestAnimationFrame(gameloop);
-	} else if (gamestate == "playing1") {
 		contextM.fillRect( xnorm , ynorm , 20 , 20 );
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ) - (20 + zoom/portalDepth*1000) / 2, (((portalY-ynorm) * zoom + 600) / 2 ) - (20 + zoom/portalDepth*1000) / 2, 20 + zoom/portalDepth*1000, 20 + zoom/portalDepth*1000 );
 		contextM.fillStyle = 'black';
@@ -803,20 +795,20 @@ function gameloop() {
 				currentPalette++;
 				changePalette();
 			} else {
-				gamestate = "game over";
+				status = "game over";
 			}
 		}
 		if (dimension >= dimensions) {
-			gamestate = "game complete";
+			status = "game complete";
 			score = Date.now()-startTime;
 		}
 	        window.requestAnimationFrame(gameloop);
-	} else if (gamestate == "paused") {
+	} else if (status == "paused") {
 		window.requestAnimationFrame(gameloop);
-	} else if (gamestate == "game over") {
+	} else if (status == "game over") {
 		contextM.fillText("Game over: You missed the portal", 400, 300);
 		window.requestAnimationFrame(gameloop);
-	} else if (gamestate == "game complete") {
+	} else if (status == "game complete") {
 		contextM.fillText("You won!", 400, 300);
 		window.requestAnimationFrame(gameloop);
 	}
