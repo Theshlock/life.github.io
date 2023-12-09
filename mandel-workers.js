@@ -759,7 +759,7 @@ var touchDevice = ('ontouchstart' in document.documentElement);
 
 function gameloop() {
 	if (gamestate == "menu") {
-		zoom = 100;
+		zoom = 10;
 		gamestate = "menu1"
 	} else if (gamestate == "menu1") {
 		zoom *= 1.01;
@@ -768,7 +768,7 @@ function gameloop() {
 		screenX = canvasWidth/2;
 		screenY = canvasHeight/2;
 	} else if (gamestate == "playing") {
-		zoom = 100;
+		zoom = 10;
 		gamestate = "playing1"
 	} else if (gamestate == "playing1") {
 		contextM.fillRect( xnorm , ynorm , 20 , 20 );
