@@ -6,18 +6,17 @@
    Modification and distribution permitted under terms of the Affero GPL version 3
 */
 
+var mousePressed = 0;
 var iterations = 1000;
 var maxBlockSize = 8;
-
-var mousePressed = 0;
 var zoom = 100;
 
 const canvasWidth = 800*2;
 const canvasHeight = 600*2;
 const scaleFactor = 2;
 
-//const coarseWidth = canvasWidth/scaleFactor;
-//const coarseHeight = canvasHeight/scaleFactor;
+const coarseWidth = canvasWidth/scaleFactor;
+const coarseHeight = canvasHeight/scaleFactor;
 
 var screenX = canvasWidth/2;
 var screenY = canvasHeight/2;
@@ -74,9 +73,10 @@ var viewportTag = document.getElementById("viewport");
 var mctx = mc.getContext("2d", { alpha: false } );
 
 // Coarse off-screen canvas
-// var coarse = document.createElement('canvas');
-//coarse.width = coarseWidth;
-//coarse.height = coarseHeight;
+var coarse = document.createElement('canvas');
+var coarseCtx = coarse.getContext("2d", { alpha: false } );
+coarse.width = coarseWidth;
+coarse.height = coarseHeight;
 
 // Off-screen Julia canvas
 
@@ -84,10 +84,10 @@ var offScreenSegment    = new Array();
 var offScreenSegmentCtx = new Array();
 var mSegment 		= new Array();
 var mdSegment 		= new Array();
-// var coarseSegment 	= new Array();
-// var coarseSegmentCtx 	= new Array();
-// var mCoarseSegment 	= new Array();
-// var mdCoarseSegment 	= new Array();
+var coarseSegment 	= new Array();
+var coarseSegmentCtx 	= new Array();
+var mCoarseSegment 	= new Array();
+var mdCoarseSegment 	= new Array();
 
 var mandel = new Array();
 var smoothMandel = new Array();
@@ -103,12 +103,12 @@ for( i=0; i < workers; i++ ) {
 	mSegment[i] = offScreenSegmentCtx[i].getImageData( 0,0, canvasWidth, canvasHeight / workers );
 	mdSegment[i] = new Uint8ClampedArray( canvasWidth * canvasHeight / workers *4 );
 	mdSegment[i].set( mSegment[i].data );
-	// coarseSegment[i] = document.createElement('canvas');
-	// coarseSegmentCtx[i] = coarseSegment[i].getContext("2d", { alpha: false } );
-	// coarseSegment[i].width = coarseWidth;
-	// coarseSegment[i].height = coarseHeight / workers;
-	// mCoarseSegment[i] = coarseSegmentCtx[i].getImageData( 0,0, coarseWidth, coarseHeight / workers );
-	// mdCoarseSegment[i] = mCoarseSegment[i].data;
+	coarseSegment[i] = document.createElement('canvas');
+	coarseSegmentCtx[i] = coarseSegment[i].getContext("2d", { alpha: false } );
+	coarseSegment[i].width = coarseWidth;
+	coarseSegment[i].height = coarseHeight / workers;
+	mCoarseSegment[i] = coarseSegmentCtx[i].getImageData( 0,0, coarseWidth, coarseHeight / workers );
+	mdCoarseSegment[i] = mCoarseSegment[i].data;
 	mandel[i] = new Uint8Array( canvasWidth * (canvasHeight/workers) ) ;
 	smoothMandel[i] = new Uint8Array( canvasWidth * (canvasHeight/workers) );
 }
@@ -574,12 +574,12 @@ function setup()
 				mdSegment[i][pixelPos+3] = 255;
 			}
 		}
-		// for( let y=0; y<coarseHeight/workers; y++ ) {
-		// 	for( let x=0; x<coarseWidth; x++ ) {
-		// 		let pixelPos = (x+y*coarseWidth)*4;
-		// 		mdCoarseSegment[i][pixelPos+3] = 255;
-		// 	}
-		// }
+		for( let y=0; y<coarseHeight/workers; y++ ) {
+			for( let x=0; x<coarseWidth; x++ ) {
+				let pixelPos = (x+y*coarseWidth)*4;
+				mdCoarseSegment[i][pixelPos+3] = 255;
+			}
+		}
 	}
 	eventTime = performance.now();
 	needRedraw = 1;
@@ -649,7 +649,7 @@ function drawMandel()
 						if( blockSize[i] == 1 )
 							computeWorker[i].postMessage({ mandelBuffer:mandel[i].buffer, workerID:i, startLine:startLine, blockSize:blockSize[i], canvasWidth:canvasWidth, segmentHeight: chunkHeight, screenX:screenX, screenY:screenY, zoom:zoom, iterations:iterations, oneShot:0, smooth:smooth, smoothMandel:smoothMandel[i].buffer }, [mandel[i].buffer],[smoothMandel[i].buffer]);
 						else
-							computeWorker[i].postMessage({ mandelBuffer:mandel[i].buffer, workerID:i, startLine:startLine/scaleFactor, blockSize:blockSize[i], canvasWidth:canvasWidth, segmentHeight: chunkHeight/2, screenX:screenX/scaleFactor, screenY:screenY/scaleFactor, zoom:zoom/scaleFactor, iterations:iterations, oneShot:0, smooth:smooth, smoothMandel:smoothMandel[i].buffer }, [mandel[i].buffer], [smoothMandel[i].buffer]);
+							computeWorker[i].postMessage({ mandelBuffer:mandel[i].buffer, workerID:i, startLine:startLine/scaleFactor, blockSize:blockSize[i], canvasWidth:coarseWidth, segmentHeight: chunkHeight/2, screenX:screenX/scaleFactor, screenY:screenY/scaleFactor, zoom:zoom/scaleFactor, iterations:iterations, oneShot:0, smooth:smooth, smoothMandel:smoothMandel[i].buffer }, [mandel[i].buffer], [smoothMandel[i].buffer]);
 					}
 					else {
 						// Just redraw if we don't need to compute the fractal
