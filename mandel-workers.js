@@ -106,8 +106,8 @@ for( i=0; i < workers; i++ ) {
 	mdSegment[i].set( mSegment[i].data );
 	coarseSegment[i] = document.createElement('canvas');
 	coarseSegmentCtx[i] = coarseSegment[i].getContext("2d", { alpha: false } );
-	coarseSegment[i].width = coarseWidth;
-	coarseSegment[i].height = coarseHeight / workers;
+	// coarseSegment[i].width = coarseWidth;
+	// coarseSegment[i].height = coarseHeight / workers;
 	mCoarseSegment[i] = coarseSegmentCtx[i].getImageData( 0,0, coarseWidth, coarseHeight / workers );
 	mdCoarseSegment[i] = mCoarseSegment[i].data;
 	mandel[i] = new Uint8Array( canvasWidth * (canvasHeight/workers) ) ;
