@@ -76,8 +76,8 @@ var mctx = mc.getContext("2d", { alpha: false } );
 // Coarse off-screen canvas
 var coarse = document.createElement('canvas');
 var coarseCtx = coarse.getContext("2d", { alpha: false } );
-coarse.width = coarseWidth;
-coarse.height = coarseHeight;
+//coarse.width = coarseWidth;
+//coarse.height = coarseHeight;
 
 // Off-screen Julia canvas
 
