@@ -715,7 +715,7 @@ contextM.font = "24px Arial";
 function gameloop() {
 	if (gamestate == "menu") {
 		zoom *= 1.01;
-		startRender(1,1);
+		//startRender(1,1);
 		window.requestAnimationFrame(gameloop);
 		screenX = canvasWidth/2;
 		screenY = canvasHeight/2;
