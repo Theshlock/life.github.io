@@ -715,21 +715,21 @@ contextM.font = "24px Arial";
 function gameloop() {
 	if (gamestate == "menu") {
 		zoom *= 1.01;
-		//startRender(1,1);
 		window.requestAnimationFrame(gameloop);
 		screenX = canvasWidth/2;
 		screenY = canvasHeight/2;
 	} else if (gamestate == "playing") {
+		contextM.fillStyle = 'green';
 		contextM.fillRect( xnorm , ynorm , 20 , 20 );
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ) - (20 + zoom/portalDepth*1000) / 2, (((portalY-ynorm) * zoom + 600) / 2 ) - (20 + zoom/portalDepth*1000) / 2, 20 + zoom/portalDepth*1000, 20 + zoom/portalDepth*1000 );
 		contextM.fillStyle = 'black';
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ), (((portalY-ynorm) * zoom + 600) / 2 ) , 10, 10);
-		contextM.fillStyle = 'green';
 		xRate += (right - left) * ( Date.now() - time ) / 100;
 		yRate += (down - up) * ( Date.now() - time ) / 100;
 		xnorm += ( xRate / zoom ) * ( Date.now() - time)  / 10;
 		ynorm += ( yRate / zoom ) * ( Date.now() - time ) / 10;
 		multiplier = -0.5 -Math.log2(((((xnorm - portalX)*zoom)/1600)**2 + ((ynorm-portalY)*zoom/1200)**2)**0.5);
+		contextM.fillText(multiplier,50,400);
 		zoom *= 1 + 0.01 * multiplier;
 		time = Date.now();
 		screenX = Math.round(-xnorm * zoom + canvasWidth/2);
