@@ -700,9 +700,8 @@ window.onkeyup = function(event) {
     if (event.keyCode === 40) {down = 0}; //down arrow
 };
 
-var dimension = 1;
-var dimensions = 10;
-
+var level = 1;
+var levels = 10;
 var xy = [-2,0,-1.999985881126867,0,-1.76877851023801,-0.00173889944794,-0.7428106660801,-0.126444300101,-0.77659226405,-0.136651039998,-0.17589070597346151,1.0866248318613803,0.2500098408374545,0,-1.7442271377036995,-0.00004589744356394797,0.3855769028905207,0.1771223560991527,-0.5615337270936567,-0.641923504258619];
 var portalX = xy[0];
 var portalY = xy[1];
@@ -712,51 +711,6 @@ var time = Date.now();
 contextM = mc.getContext('2d');
 contextM.fillStyle = 'green';
 contextM.font = "24px Arial";
-
-var gamestate
-
-menu()
-
-startTime = Date.now();
-
-startRender(1,1);
-
-function menu() {
-	document.getElementById("pause").style.display = "none";
-	gamestate="menu";
-		xRate = 0;
-		yRate - 0;
-		xnorm = -1.76877851023801;
-		ynorm = -0.00173889944794;
-		zoom = 10;
-		screenX = canvasWidth/2;
-		screenY = canvasHeight/2;
-	document.getElementById("play").style.display = "none";
-	document.getElementById("menu").style.display = "flex";
-}
-
-function play() {
-	zoom = 10;
-	gamestate = "playing";
-	document.getElementById("menu").style.display = "none";
-	document.getElementById("play").style.display = "flex";
-	zoom = 10;
-}
-
-function pause() {
-	gamestate = "paused"
-	document.getElementById("play").style.display = "none";
-	document.getElementById("pause").style.display = "flex";
-}
-
-function resume() {
-	time=Date.now();
-	gamestate = "playing";
-	document.getElementById("pause").style.display = "none";
-	document.getElementById("play").style.display = "flex";
-}
-
-var touchDevice = ('ontouchstart' in document.documentElement);
 
 function gameloop() {
 	if (gamestate == "menu") {
@@ -781,40 +735,72 @@ function gameloop() {
 		screenX = Math.round(-xnorm * zoom + canvasWidth/2);
 		screenY = Math.round(-ynorm * zoom + canvasHeight/2);
 		startRender(1,1);
-		contextM.fillText( touchDevice, 400, 300);
 
 	        if( zoom > portalDepth ) {
 			if ( -800 < (((portalX-xnorm) * zoom + 800) / 2) && (((portalX-xnorm) * zoom + 800) / 2) < 800 && -1200 < (((portalY-ynorm) * zoom + 600) / 2) && (((portalX-xnorm) * zoom + 800) / 2) < 1200) {
-				console.log("passed");
+
+				level++;
+				if (level >= levels) {
+					score = Date.now()-startTime;
+					youre_winner()
+				}
 				zoom = 10;
-				dimension++;
-				portalX = xy[2*dimension];
-				portalY = xy[2*dimension + 1];
+				portalX = xy[2*level];
+				portalY = xy[2*level + 1];
 				xnorm = 0;
 				ynorm = 0;
 				xRate = 0;
 				yRate = 0;
 				currentPalette++;
 				changePalette();
-			} else {
-				gamestate = "game over";
 			}
 		}
-		if (dimension >= dimensions) {
-			gamestate = "game complete";
-			score = Date.now()-startTime;
-		}
-	        window.requestAnimationFrame(gameloop);
+		window.requestAnimationFrame(gameloop);
 	} else if (gamestate == "paused") {
-		window.requestAnimationFrame(gameloop);
-	} else if (gamestate == "game over") {
-		contextM.fillText("Game over: You missed the portal", 400, 300);
-		window.requestAnimationFrame(gameloop);
+		// Save time 
 	} else if (gamestate == "game complete") {
-		contextM.fillText("You won!", 400, 300);
-		window.requestAnimationFrame(gameloop);
+
 	}
 }
 
+menu()
+startTime = Date.now();
 
+function menu() {
+	document.getElementById("pause").style.display = "none";
+	gamestate="menu";
+		xRate = 0;
+		yRate - 0;
+		xnorm = -1.76877851023801;
+		ynorm = -0.00173889944794;
+		zoom = 10;
+		screenX = canvasWidth/2;
+		screenY = canvasHeight/2;
+	document.getElementById("play").style.display = "none";
+	document.getElementById("menu").style.display = "flex";
+}
+
+function play() {
+	zoom = 10;
+	gamestate = "playing";
+	document.getElementById("menu").style.display = "none";
+	document.getElementById("play").style.display = "flex";
+	zoom = 10;
+}
+function pause() {
+	gamestate = "paused"
+	document.getElementById("play").style.display = "none";
+	document.getElementById("pause").style.display = "flex";
+}
+function resume() {
+	time=Date.now();
+	gamestate = "playing";
+	document.getElementById("pause").style.display = "none";
+	document.getElementById("play").style.display = "flex";
+}
+
+var touchDevice = ('ontouchstart' in document.documentElement);
+// if (toughDevice) {document.opad.style = flex or whateva}
+
+startRender(1,1);
 window.requestAnimationFrame(gameloop);
