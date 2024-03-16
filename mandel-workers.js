@@ -1,30 +1,32 @@
 /* mandel-workers.js
-   Core functions to produce an interactive Mandelbrot Set using HTML Web Workers
-   This program relies heavily on HTML Web Workers, tranferable objects (via postMessage), and off-screen Canvas objects
+   LIFE, the game.
    Copyright (c) 2019 - 2021 Greg Trounson greg@gart.nz
-   Copyright (c) 2022 - 2023 Samuel Lockton lockton.sam@gmail.com
+   Copyright (c) 2022 - 2024 Samuel Lockton lockton.sam@gmail.com
    Modification and distribution permitted under terms of the Affero GPL version 3
 */
 
-var mousePressed = 0;
-var iterations = 1000;
-var maxBlockSize = 8;
+var levels = 10;
+var level = 1;
+var xy = [-2,0,-1.999985881126867,0,-1.76877851023801,-0.00173889944794,-0.7428106660801,-0.126444300101,-0.77659226405,-0.136651039998,-0.17589070597346151,1.0866248318613803,0.2500098408374545,0,-1.7442271377036995,-0.00004589744356394797,0.3855769028905207,0.1771223560991527,-0.5615337270936567,-0.641923504258619]; // portal locations (packed)
+var portalX = xy[0];
+var portalY = xy[1];
+var portalDepth = 200000000000000000;
 var zoom = 100;
+var iterations = 1000;
+var mousePressed = 0;
 
-const canvasWidth = 800*2;
-const canvasHeight = 600*2;
+const canvasWidth = 1600;
+const canvasHeight = 1200;
 const scaleFactor = 2;
 
-// I think that what you see most of the time is the coarse canvas
-// Refer to the original tool behaviour to see that the resolution is lower which would make sense to be 
-// referred to as coarse.
-// I.E. You cannot remove this
+// What you see most of the time is the coarse canvas
 const coarseWidth = canvasWidth/scaleFactor;
 const coarseHeight = canvasHeight/scaleFactor;
 
 var screenX = canvasWidth/2;
 var screenY = canvasHeight/2;
 
+var maxBlockSize = 8;
 var blockSize = new Uint8Array(16);
 blockSize[0] = 16;
 blockSize[1] = 16;
@@ -44,6 +46,7 @@ var destY = 0;
 var destZoom = 0;
 var destIters = 0;
 
+// HTML Web Worker variables
 var computeWorker = new Array();
 var computeWorkerRunning = new Uint8Array(16);
 var renderWorker = new Array();
@@ -71,6 +74,7 @@ const chunkHeight = canvasHeight / workers;
 var needRedraw = 0;
 var needRecompute = 1;
 var smooth = 0;
+
 var mc = document.getElementById("mandelCanvas");
 mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"
 var viewportTag = document.getElementById("viewport");
@@ -83,7 +87,6 @@ coarse.width = coarseWidth;
 coarse.height = coarseHeight;
 
 // Off-screen Julia canvas
-
 var offScreenSegment    = new Array();
 var offScreenSegmentCtx = new Array();
 var mSegment 		= new Array();
@@ -118,8 +121,6 @@ for( i=0; i < workers; i++ ) {
 }
 
 var worker = 0;
-
-mc.addEventListener( "touchend", touchEnd, false );
 
 window.addEventListener("resize", setViewport, false);
 
@@ -468,7 +469,6 @@ function pointOnScreen( x,y )
 {
 	var destXscreen = x * zoom + screenX;
 	var destYscreen = y * zoom + screenY;
-	//console.log( destXscreen, destYscreen );
 	if( ( destXscreen > 0 ) && ( destXscreen < canvasWidth ) && ( destYscreen > 0 ) && ( destYscreen < canvasHeight ) )
 		return 1;
 	else
@@ -554,14 +554,7 @@ var onRenderEnded = function (e)
 
 };
 
-// Mobile Control
-
-function touchEnd(event)
-{
-	up = down = left = right = 0;
-}
-
-// Engine Code
+// Instantiation
 
 function setup()
 {
@@ -686,6 +679,8 @@ var down = 0;
 var left = 0;
 var right = 0;
 
+// Arrow Key Control
+
 window.onkeydown = function(event) {
     if (event.keyCode === 39) {right = 1}; //right arrow
     if (event.keyCode === 37) {left = 1}; //left arrow
@@ -700,14 +695,14 @@ window.onkeyup = function(event) {
     if (event.keyCode === 40) {down = 0}; //down arrow
 };
 
-var level = 1;
-var levels = 10;
-var xy = [-2,0,-1.999985881126867,0,-1.76877851023801,-0.00173889944794,-0.7428106660801,-0.126444300101,-0.77659226405,-0.136651039998,-0.17589070597346151,1.0866248318613803,0.2500098408374545,0,-1.7442271377036995,-0.00004589744356394797,0.3855769028905207,0.1771223560991527,-0.5615337270936567,-0.641923504258619];
-var portalX = xy[0];
-var portalY = xy[1];
-var portalDepth = 200000000000000000;
-var time = Date.now();
+// Mobile Touch Control
 
+// Console.log 
+document.ontouchstart = function(e){
+    console.log(e); // show data from ontouchstart event
+}
+
+var time = Date.now();
 contextM = mc.getContext('2d');
 contextM.fillStyle = 'green';
 contextM.font = "24px Arial";
@@ -720,7 +715,6 @@ function gameloop() {
 		screenY = canvasHeight/2;
 	} else if (gamestate == "playing") {
 		contextM.fillStyle = 'green';
-		contextM.fillRect( xnorm , ynorm , 20 , 20 );
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ) - (20 + zoom/portalDepth*1000) / 2, (((portalY-ynorm) * zoom + 600) / 2 ) - (20 + zoom/portalDepth*1000) / 2, 20 + zoom/portalDepth*1000, 20 + zoom/portalDepth*1000 );
 		contextM.fillStyle = 'black';
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ), (((portalY-ynorm) * zoom + 600) / 2 ) , 10, 10);
@@ -728,21 +722,22 @@ function gameloop() {
 		yRate += (down - up) * ( Date.now() - time ) / 100;
 		xnorm += ( xRate / zoom ) * ( Date.now() - time)  / 10;
 		ynorm += ( yRate / zoom ) * ( Date.now() - time ) / 10;
-		multiplier = -0.5 -Math.log2(((((xnorm - portalX)*zoom)/1600)**2 + ((ynorm-portalY)*zoom/1200)**2)**0.5);
+		multiplier = -0.5 - Math.log2(((((xnorm - portalX)*zoom)/1600)**2 + ((ynorm-portalY)*zoom/1200)**2)**0.5);
 		contextM.fillText(multiplier,400,50);
+		contextM.fillText(Date.now()-startTime-timePaused,400,80);
 		zoom *= 1 + 0.01 * multiplier;
 		time = Date.now();
 		screenX = Math.round(-xnorm * zoom + canvasWidth/2);
 		screenY = Math.round(-ynorm * zoom + canvasHeight/2);
 		startRender(1,1);
 
-	        if( zoom > portalDepth ) {
+		if( zoom > portalDepth ) {
 			if ( -800 < (((portalX-xnorm) * zoom + 800) / 2) && (((portalX-xnorm) * zoom + 800) / 2) < 800 && -1200 < (((portalY-ynorm) * zoom + 600) / 2) && (((portalX-xnorm) * zoom + 800) / 2) < 1200) {
-
 				level++;
 				if (level >= levels) {
-					score = Date.now()-startTime;
-					youre_winner()
+					totalTime = Date.now()-startTime-timePaused;
+					console.log('you win!')
+					victory()
 				}
 				zoom = 10;
 				portalX = xy[2*level];
@@ -757,7 +752,11 @@ function gameloop() {
 		}
 		window.requestAnimationFrame(gameloop);
 	} else if (gamestate == "paused") {
-		// Save time 
+		contextM.fillStyle = 'green';
+		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ) - (20 + zoom/portalDepth*1000) / 2, (((portalY-ynorm) * zoom + 600) / 2 ) - (20 + zoom/portalDepth*1000) / 2, 20 + zoom/portalDepth*1000, 20 + zoom/portalDepth*1000 );
+		contextM.fillStyle = 'black';
+		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ), (((portalY-ynorm) * zoom + 600) / 2 ) , 10, 10);
+
 	} else if (gamestate == "game complete") {
 
 	}
@@ -765,6 +764,8 @@ function gameloop() {
 
 menu()
 startTime = Date.now();
+
+// Game states and transitional logic
 
 function menu() {
 	document.getElementById("pause").style.display = "none";
@@ -781,26 +782,26 @@ function menu() {
 }
 
 function play() {
-	zoom = 10;
+	startTime = Date.now()
 	gamestate = "playing";
 	document.getElementById("menu").style.display = "none";
 	document.getElementById("play").style.display = "flex";
 	zoom = 10;
+
 }
 function pause() {
 	gamestate = "paused"
 	document.getElementById("play").style.display = "none";
 	document.getElementById("pause").style.display = "flex";
+	pausedAt = Date.now()
 }
 function resume() {
-	time=Date.now();
+	timePaused += Date.now() - pausedAt
 	gamestate = "playing";
 	document.getElementById("pause").style.display = "none";
 	document.getElementById("play").style.display = "flex";
 }
 
-var touchDevice = ('ontouchstart' in document.documentElement);
-// if (toughDevice) {document.opad.style = flex or whateva}
 
 startRender(1,1);
 window.requestAnimationFrame(gameloop);
