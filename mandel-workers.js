@@ -701,7 +701,7 @@ window.onkeyup = function(event) {
 document.ontouchstart = function(e){
     console.log(e); // show data from ontouchstart event
 }
-
+var timePaused = 0
 var time = Date.now();
 contextM = mc.getContext('2d');
 contextM.fillStyle = 'green';
