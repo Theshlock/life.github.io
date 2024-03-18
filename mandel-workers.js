@@ -710,7 +710,6 @@ contextM.font = "24px Arial";
 function gameloop() {
 	if (gamestate == "menu") {
 		zoom *= 1.01;
-		window.requestAnimationFrame(gameloop);
 		screenX = canvasWidth/2;
 		screenY = canvasHeight/2;
 	} else if (gamestate == "playing") {
@@ -750,16 +749,16 @@ function gameloop() {
 				changePalette();
 			}
 		}
-		window.requestAnimationFrame(gameloop);
 	} else if (gamestate == "paused") {
 		contextM.fillStyle = 'green';
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ) - (20 + zoom/portalDepth*1000) / 2, (((portalY-ynorm) * zoom + 600) / 2 ) - (20 + zoom/portalDepth*1000) / 2, 20 + zoom/portalDepth*1000, 20 + zoom/portalDepth*1000 );
 		contextM.fillStyle = 'black';
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ), (((portalY-ynorm) * zoom + 600) / 2 ) , 10, 10);
-
+		
 	} else if (gamestate == "game complete") {
-
+		
 	}
+	window.requestAnimationFrame(gameloop);
 }
 
 menu()
