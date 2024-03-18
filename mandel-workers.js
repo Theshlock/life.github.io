@@ -703,6 +703,10 @@ document.ontouchstart = function(e){
     console.log('y ' + e.touches[0].screenY);
 
 }
+document.ontouchmove = function(e){
+	console.log(e)
+
+}
 
 // Game loop
 var timePaused = 0
