@@ -701,6 +701,8 @@ window.onkeyup = function(event) {
 document.ontouchstart = function(e){
     console.log(e); // show data from ontouchstart event
 }
+
+// Game loop
 var timePaused = 0
 var time = Date.now();
 contextM = mc.getContext('2d');
@@ -713,6 +715,7 @@ function gameloop() {
 		screenX = canvasWidth/2;
 		screenY = canvasHeight/2;
 	} else if (gamestate == "playing") {
+		time = Date.now();
 		contextM.fillStyle = 'green';
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ) - (20 + zoom/portalDepth*1000) / 2, (((portalY-ynorm) * zoom + 600) / 2 ) - (20 + zoom/portalDepth*1000) / 2, 20 + zoom/portalDepth*1000, 20 + zoom/portalDepth*1000 );
 		contextM.fillStyle = 'black';
@@ -756,7 +759,7 @@ function gameloop() {
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ), (((portalY-ynorm) * zoom + 600) / 2 ) , 10, 10);
 		
 	} else if (gamestate == "game complete") {
-		
+		console.log('you win');
 	}
 	window.requestAnimationFrame(gameloop);
 }
