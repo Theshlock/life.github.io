@@ -699,7 +699,9 @@ window.onkeyup = function(event) {
 
 // Console.log 
 document.ontouchstart = function(e){
-    console.log(e.touches[0].screenX); // show data from ontouchstart event
+    console.log('x ' + e.touches[0].screenX);
+    console.log('y ' + e.touches[0].screenY);
+
 }
 
 // Game loop
