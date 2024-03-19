@@ -699,13 +699,13 @@ window.onkeyup = function(event) {
 
 // Console.log 
 document.ontouchstart = function(e){
-    console.log('x ' + e.touches[0].screenX);
-    console.log('y ' + e.touches[0].screenY);
+    console.log('x ' + e.touches[0].clientX);
+    console.log('y ' + e.touches[0].clientY);
 
 }
 document.ontouchmove = function(e){
-	console.log('x ' + e.touches[0].screenX);
-	console.log('y ' + e.touches[0].screenY);
+	console.log('x ' + e.touches[0].clientX);
+	console.log('y ' + e.touches[0].clientY);
 	console.log(e)
 }
 
