@@ -704,7 +704,8 @@ document.ontouchstart = function(e){
 
 }
 document.ontouchmove = function(e){
-	console.log(e)
+	console.log('x ' + e.touches[0].screenX);
+	console.log('y ' + e.touches[0].screenY);
 
 }
 
