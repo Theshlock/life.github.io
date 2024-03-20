@@ -699,6 +699,9 @@ window.onkeyup = function(event) {
 
 var touchDevice = ('ontouchstart' in document.documentElement);
 console.log(touchDevice);
+if (touchDevice) {
+	document.getElementsByClassName("opad").style.display = "inline-block"
+}
 
 document.ontouchstart = function(e){
 	//console.log('centrepoint ' + )

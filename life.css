@@ -52,7 +52,7 @@ img.vert-move {
   width: 50vh;
   background-color: #bbb;
   border-radius: 50%;
-  display: inline-block;
+  display: none;
   position: absolute;
   bottom: 0;
   right: 0;
