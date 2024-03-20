@@ -699,7 +699,7 @@ window.onkeyup = function(event) {
 
 // Console.log 
 document.ontouchstart = function(e){
-	console.log('centrepoint ' + )
+	//console.log('centrepoint ' + )
     console.log('x ' + e.touches[0].clientX);
     console.log('y ' + e.touches[0].clientY);
 
