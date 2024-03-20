@@ -700,7 +700,7 @@ window.onkeyup = function(event) {
 var touchDevice = ('ontouchstart' in document.documentElement);
 console.log(touchDevice);
 if (touchDevice) {
-	document.getElementsByClassName("opad").style.display = "inline-block"
+	document.getElementsByClassName("opad").style.display = "block"
 }
 
 document.ontouchstart = function(e){
