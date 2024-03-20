@@ -707,10 +707,11 @@ if (touchDevice) {
 // log centre point
 
 console.log(screen.width-screen.height/2, screen.height*0.75)
-
+var cp = [0,0]
+cp[0] = screen.width-screen.height/2
+cp[1] = screen.height*0.75
 // touch functions
 document.ontouchstart = function(e){
-	//console.log('centrepoint ' + )
     console.log('x ' + e.touches[0].clientX);
     console.log('y ' + e.touches[0].clientY);
 
@@ -718,7 +719,6 @@ document.ontouchstart = function(e){
 document.ontouchmove = function(e){
 	console.log('x ' + e.touches[0].clientX);
 	console.log('y ' + e.touches[0].clientY);
-	console.log(e)
 }
 
 document.ontouchcancel = function(e) {
