@@ -721,6 +721,9 @@ document.ontouchstart = function(e){
 document.ontouchmove = function(e){
 	console.log('x ' + e.touches[0].clientX);
 	console.log('y ' + e.touches[0].clientY);
+	if ( (e.touches[0].clientX - (screen.width-screen.height/2))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
+		console.log('inside circle!');
+	}
 }
 
 document.ontouchcancel = function(e) {
