@@ -708,20 +708,20 @@ if (touchDevice) {
 
 console.log(screen.width-screen.height/2, screen.height*0.75)
 var cp = [0,0]
-cp[0] = screen.width-screen.height/2
+cp[0] = screen.width-screen.height/4
 cp[1] = screen.height*0.75
 // touch functions
 document.ontouchstart = function(e){
     console.log('x ' + e.touches[0].clientX);
     console.log('y ' + e.touches[0].clientY);
-	if ( (e.touches[0].clientX - (screen.width-screen.height/2))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
+	if ( (e.touches[0].clientX - (screen.width-screen.height/4))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
 		console.log('inside circle!');
 	}
 }
 document.ontouchmove = function(e){
 	console.log('x ' + e.touches[0].clientX);
 	console.log('y ' + e.touches[0].clientY);
-	if ( (e.touches[0].clientX - (screen.width-screen.height/2))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
+	if ( (e.touches[0].clientX - (screen.width-screen.height/4))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
 		console.log('inside circle!');
 	}
 }
