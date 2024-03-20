@@ -716,8 +716,8 @@ document.ontouchstart = function(e){
     console.log('y ' + e.touches[0].clientY);
 	if ( (e.touches[0].clientX - (screen.width-screen.height/4))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
 		console.log('inside circle!');
-		right = (screen.height/4) / (e.touches[0].clientX - (screen.width-screen.height/4))
-		up = (screen.height/4) / (e.touches[0].clientY - (screen.height*0.75))
+		right = (e.touches[0].clientX - (screen.width-screen.height/4)) / (screen.height/4);
+		up = (e.touches[0].clientY - (screen.height*0.75)) / (screen.height/4);
 	}
 }
 document.ontouchmove = function(e){
@@ -725,8 +725,8 @@ document.ontouchmove = function(e){
 	console.log('y ' + e.touches[0].clientY);
 	if ( (e.touches[0].clientX - (screen.width-screen.height/4))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
 		console.log('inside circle!');
-		right = (screen.height/4) / (e.touches[0].clientX - (screen.width-screen.height/4))
-		up = (screen.height/4) / (e.touches[0].clientY - (screen.height*0.75))
+		right = (e.touches[0].clientX - (screen.width-screen.height/4)) / (screen.height/4);
+		up = (e.touches[0].clientY - (screen.height*0.75)) / (screen.height/4);
 	}
 }
 
