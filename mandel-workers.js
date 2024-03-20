@@ -697,7 +697,7 @@ window.onkeyup = function(event) {
 
 // Mobile Touch Control
 
-document.getElementsByClassName("opad")
+document.getElementsByClassName("opad")[0].clientWidth = document.getElementsByClassName("opad")[0].clientHeight
 
 document.ontouchstart = function(e){
 	//console.log('centrepoint ' + )
