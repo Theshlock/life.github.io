@@ -704,42 +704,26 @@ if (touchDevice) {
 	document.getElementsByClassName("opad")[0].style.display = "block"
 }
 
-// log centre point
-
-console.log(screen.width-screen.height/2, screen.height*0.75)
-var cp = [0,0]
-cp[0] = screen.width-screen.height/4
-cp[1] = screen.height*0.75
 // touch functions
 document.ontouchstart = function(e){
-    console.log('x ' + e.touches[0].clientX);
-    console.log('y ' + e.touches[0].clientY);
 	if ( (e.touches[0].clientX - (screen.width-screen.height/4))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
-		console.log('inside circle!');
 		right = (e.touches[0].clientX - (screen.width-screen.height/4)) / (screen.height/4);
 		down = (e.touches[0].clientY - (screen.height*0.75)) / (screen.height/4);
 	}
 }
 document.ontouchmove = function(e){
-	console.log('x ' + e.touches[0].clientX);
-	console.log('y ' + e.touches[0].clientY);
 	if ( (e.touches[0].clientX - (screen.width-screen.height/4))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
-		console.log('inside circle!');
 		right = (e.touches[0].clientX - (screen.width-screen.height/4)) / (screen.height/4);
 		down = (e.touches[0].clientY - (screen.height*0.75)) / (screen.height/4);
 	}
 }
 
 document.ontouchcancel = function(e) {
-	console.log('x 0');
-	console.log('y 0');
 	right = 0;
 	up = 0;
 }
 
 document.ontouchend = function(e) {
-	console.log('x 0');
-	console.log('y 0');
 	right = 0;
 	up = 0;
 }
