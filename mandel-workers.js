@@ -697,6 +697,9 @@ window.onkeyup = function(event) {
 
 // Mobile Touch Control
 
+var touchDevice = ('ontouchstart' in document.documentElement);
+console.log(touchDevice);
+
 document.ontouchstart = function(e){
 	//console.log('centrepoint ' + )
     console.log('x ' + e.touches[0].clientX);

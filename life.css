@@ -48,8 +48,8 @@ img.vert-move {
   100% { transform: translateY(-10px); }
 }
 .opad {
-  height: 25vw;
-  width: 25vw;
+  height: 50vh;
+  width: 50vh;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
