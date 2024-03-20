@@ -716,6 +716,8 @@ document.ontouchstart = function(e){
     console.log('y ' + e.touches[0].clientY);
 	if ( (e.touches[0].clientX - (screen.width-screen.height/4))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
 		console.log('inside circle!');
+		right = screen.height/4 / (e.touches[0].clientX - (screen.width-screen.height/4))
+		left = screen.height/4 / (e.touches[0].clientY - (screen.height*0.75))
 	}
 }
 document.ontouchmove = function(e){
@@ -723,19 +725,23 @@ document.ontouchmove = function(e){
 	console.log('y ' + e.touches[0].clientY);
 	if ( (e.touches[0].clientX - (screen.width-screen.height/4))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
 		console.log('inside circle!');
+		right = screen.height/4 / (e.touches[0].clientX - (screen.width-screen.height/4))
+		left = screen.height/4 / (e.touches[0].clientY - (screen.height*0.75))
 	}
 }
 
 document.ontouchcancel = function(e) {
 	console.log('x 0');
 	console.log('y 0');
-
+	right = 0;
+	left = 0;
 }
 
 document.ontouchend = function(e) {
 	console.log('x 0');
 	console.log('y 0');
-
+	right = 0;
+	left = 0;
 }
 
 // Game loop
