@@ -697,6 +697,7 @@ window.onkeyup = function(event) {
 
 // Mobile Touch Control
 
+// check if user is on mobile
 var touchDevice = ('ontouchstart' in document.documentElement);
 console.log(touchDevice);
 if (touchDevice) {
@@ -715,6 +716,17 @@ document.ontouchmove = function(e){
 	console.log(e)
 }
 
+document.ontouchcancel = function(e) {
+	console.log('x 0');
+	console.log('y 0');
+
+}
+
+document.ontouchend = function(e) {
+	console.log('x 0');
+	console.log('y 0');
+
+}
 // Game loop
 var timePaused = 0
 var time = Date.now();
