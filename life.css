@@ -53,4 +53,8 @@ img.vert-move {
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  opacity: 50%;
 }
