@@ -47,7 +47,7 @@ img.vert-move {
   0% { transform: translateY(0); }
   100% { transform: translateY(-10px); }
 }
-.dot {
+.opad {
   height: 50%;
   width: 50%;
   background-color: #bbb;
