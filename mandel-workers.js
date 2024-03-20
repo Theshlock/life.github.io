@@ -704,6 +704,11 @@ if (touchDevice) {
 	document.getElementsByClassName("opad")[0].style.display = "block"
 }
 
+// log centre point
+
+console.log(screen.width-screen.height/2, screen.height*0.75)
+
+// touch functions
 document.ontouchstart = function(e){
 	//console.log('centrepoint ' + )
     console.log('x ' + e.touches[0].clientX);
@@ -727,6 +732,7 @@ document.ontouchend = function(e) {
 	console.log('y 0');
 
 }
+
 // Game loop
 var timePaused = 0
 var time = Date.now();
