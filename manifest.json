@@ -2,7 +2,7 @@
   "background_color": "#001cff",
   "description": "Explore the famous Mandelbrot Set fractal\nFast and natural real-time spaceship interface.\nSeek the Portal.",
   "dir": "ltr",
-  "display": "fullscreen",
+  "display": "standalone",
   "name": "LIFE",
   "orientation": "landscape",
   "scope": "/",
