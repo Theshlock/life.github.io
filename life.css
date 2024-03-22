@@ -1,5 +1,6 @@
+
 img {
-  height: 40vh;
+  height: 40;
   width: 100vw;
   text-align: center;
   margin: auto;
@@ -48,6 +49,7 @@ img.vert-move {
   100% { transform: translateY(-10px); }
 }
 .opad {
+  touch-action: auto;
   height: 50vh;
   width: 50vh;
   background-color: #bbb;
