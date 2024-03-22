@@ -49,7 +49,7 @@ img.vert-move {
   100% { transform: translateY(-10px); }
 }
 .opad {
-  touch-action: auto;
+  touch-action: none;
   height: 50vh;
   width: 50vh;
   background-color: #bbb;
