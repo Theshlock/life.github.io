@@ -742,7 +742,7 @@ function gameloop() {
 	} else if (gamestate == "playing") {
 		contextM.fillStyle = 'green';
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ) - (20 + zoom/portalDepth*1000) / 2, (((portalY-ynorm) * zoom + 600) / 2 ) - (20 + zoom/portalDepth*1000) / 2, 20 + zoom/portalDepth*1000, 20 + zoom/portalDepth*1000 );
-		contextM.fillStyle = 'black';
+		contextM.fillStyle = 'white';
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ), (((portalY-ynorm) * zoom + 600) / 2 ) , 10, 10);
 		xRate += (right - left) * ( Date.now() - time ) / 100;
 		xRate *= 0.99
