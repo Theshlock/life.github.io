@@ -1,4 +1,8 @@
-
+@media screen (orientation: portrait) {
+  html {
+    transform: rotate(-90deg);
+  }
+}
 img {
   height: 50vh;
   width: 50vw;
