@@ -739,6 +739,7 @@ function gameloop() {
 		zoom *= 1.01;
 		screenX = canvasWidth/2;
 		screenY = canvasHeight/2;
+		startRender(1,1);
 	} else if (gamestate == "playing") {
 		contextM.fillStyle = 'green';
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ) - (20 + zoom/portalDepth*1000) / 2, (((portalY-ynorm) * zoom + 600) / 2 ) - (20 + zoom/portalDepth*1000) / 2, 20 + zoom/portalDepth*1000, 20 + zoom/portalDepth*1000 );
