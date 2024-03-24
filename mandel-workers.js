@@ -699,7 +699,6 @@ window.onkeyup = function(event) {
 
 // check if user is on mobile
 var touchDevice = ('ontouchstart' in document.documentElement);
-console.log(touchDevice);
 if (touchDevice) {
 	document.getElementsByClassName("opad")[0].style.display = "block"
 }
