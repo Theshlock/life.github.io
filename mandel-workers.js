@@ -703,29 +703,16 @@ if (touchDevice) {
 	document.getElementsByClassName("opad")[0].style.display = "block"
 }
 
-// touch functions
-document.ontouchstart = function(e){
-	if ( (e.touches[0].clientX - (screen.width-screen.height/4))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
-		right = (e.touches[0].clientX - (screen.width-screen.height/4)) / (screen.height/4);
-		down = (e.touches[0].clientY - (screen.height*0.75)) / (screen.height/4);
-	}
-}
-document.ontouchmove = function(e){
-	if ( (e.touches[0].clientX - (screen.width-screen.height/4))**2 + (e.touches[0].clientY - (screen.height*0.75))**2 < (screen.height/4)**2 ) {
-		right = (e.touches[0].clientX - (screen.width-screen.height/4)) / (screen.height/4);
-		down = (e.touches[0].clientY - (screen.height*0.75)) / (screen.height/4);
-	}
-}
+// accelerometer control
 
-document.ontouchcancel = function(e) {
-	right = 0;
-	up = 0;
-}
+const acl = new Accelerometer({ frequency: 60 });
+acl.addEventListener("reading", () => {
+  //console.log(`Acceleration along the X-axis ${acl.x}`);
+  //console.log(`Acceleration along the Y-axis ${acl.y}`);
+  //console.log(`Acceleration along the Z-axis ${acl.z}`);
+});
 
-document.ontouchend = function(e) {
-	right = 0;
-	up = 0;
-}
+acl.start();
 
 // Game loop
 var timePaused = 0
@@ -756,6 +743,11 @@ function gameloop() {
 		contextM.fillText("level: " + level + "/8",500,550);
 		contextM.fillText("zoom mult.: " + Math.round(multiplier) ,300,550);
 		contextM.fillText((Date.now()-startTime-timePaused)/1000 + "s",100,550);
+		// accel show
+		contextM.fillText(acl.x,100,50);
+		contextM.fillText(acl.y,300,50);
+		contextM.fillText(acl.z,500,50);
+		
 		zoom *= 1 + 0.01 * multiplier;
 		time = Date.now();
 		screenX = Math.round(-xnorm * zoom + canvasWidth/2);
