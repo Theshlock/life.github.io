@@ -744,6 +744,7 @@ function gameloop() {
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ) - (20 + zoom/portalDepth*1000) / 2, (((portalY-ynorm) * zoom + 600) / 2 ) - (20 + zoom/portalDepth*1000) / 2, 20 + zoom/portalDepth*1000, 20 + zoom/portalDepth*1000 );
 		contextM.fillStyle = 'white';
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ), (((portalY-ynorm) * zoom + 600) / 2 ) , 10, 10);
+		contextM.fillRect( 400, 300 , 10, 10);
 		xRate += (right - left) * ( Date.now() - time ) / 100;
 		xRate *= 0.99
 		yRate += (down - up) * ( Date.now() - time ) / 100;
