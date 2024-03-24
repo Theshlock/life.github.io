@@ -749,8 +749,8 @@ function gameloop() {
 		xnorm += ( xRate / zoom ) * ( Date.now() - time)  / 10;
 		ynorm += ( yRate / zoom ) * ( Date.now() - time ) / 10;
 		multiplier = -0.5 - Math.log2(((((xnorm - portalX)*zoom)/1600)**2 + ((ynorm-portalY)*zoom/1200)**2)**0.5);
-		contextM.fillText(multiplier,400,50);
-		contextM.fillText(Date.now()-startTime-timePaused,400,80);
+		contextM.fillText("zoom mult.: " + multiplier,400,300);
+		contextM.fillText((Date.now()-startTime-timePaused)/1000 + "s",400,380);
 		zoom *= 1 + 0.01 * multiplier;
 		time = Date.now();
 		screenX = Math.round(-xnorm * zoom + canvasWidth/2);
@@ -826,6 +826,9 @@ function resume() {
 	gamestate = "playing";
 	document.getElementById("pause").style.display = "none";
 	document.getElementById("play").style.display = "flex";
+}
+function victory() {
+
 }
 
 
