@@ -122,13 +122,6 @@ for( i=0; i < workers; i++ ) {
 
 var worker = 0;
 
-window.addEventListener("resize", setViewport, false);
-
-function setViewport()
-{
-	mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"
-}
-
 function killWorkers()
 {
 	for( var i=0; i<workers; i++ ) {
@@ -555,6 +548,13 @@ var onRenderEnded = function (e)
 };
 
 // Instantiation
+
+window.addEventListener("resize", setViewport, false);
+
+function setViewport()
+{
+	mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"
+}
 
 function setup()
 {
