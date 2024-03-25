@@ -13,6 +13,7 @@ img {
 }
 #container canvas, #overlay, #overlay2 {
   position: absolute;
+  touch-action: none;
 }
 div {
   position: absolute;
@@ -47,16 +48,4 @@ img.vert-move {
 @keyframes mover {
   0% { transform: translateY(0); }
   100% { transform: translateY(-10px); }
-}
-.opad {
-  touch-action: none;
-  height: 50vh;
-  width: 50vh;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: none;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  opacity: 50%;
 }
