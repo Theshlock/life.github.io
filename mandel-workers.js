@@ -711,6 +711,9 @@ document.ontouchstart = function(e){
 document.ontouchmove = function(e){
 	tPMX = e.touches[0].clientX;
 	tPMY = e.touches[0].clientY;
+	distanceofthevector = ((tPMX - tPSX)**2 + (tPMY - tPSY)**2)**0.5;
+	right = (tPMX - tPSX) / distanceofthevector;
+	up = (tPMY - tPSY) / distanceofthevector ;
 }
 
 document.ontouchcancel = function(e) {
