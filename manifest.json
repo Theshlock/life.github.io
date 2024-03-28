@@ -3,7 +3,7 @@
   "description": "Explore the famous Mandelbrot Set fractal\nFast and natural real-time spaceship interface.\nSeek the Portal.",
   "dir": "ltr",
   "display_override": "window-controls-overlay",
-  "display": "standalone",
+  "display": "fullscreen",
   "name": "LIFE",
   "orientation": "landscape",
   "scope": "/",

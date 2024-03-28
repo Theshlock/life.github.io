@@ -1,0 +1,43 @@
+{
+  "packageId": "com.githubusercontent.raw.twa",
+  "host": "raw.githubusercontent.com/Theshlock/life.github.io/master/",
+  "name": "LIFE",
+  "launcherName": "LIFE",
+  "display": "fullscreen",
+  "themeColor": "#D0D0D0",
+  "themeColorDark": "#000000",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#001CFF",
+  "enableNotifications": true,
+  "startUrl": "https://raw.githubusercontent.com/Theshlock/life.github.io/master/",
+  "iconUrl": "https://raw.githubusercontent.com/Theshlock/life.github.io/master/icon.png",
+  "maskableIconUrl": "https://raw.githubusercontent.com/Theshlock/life.github.io/master/icon.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "/Users/sam/Desktop/life.github.io/android.keystore",
+    "alias": "android"
+  },
+  "appVersionName": "1",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://raw.githubusercontent.com/Theshlock/life.github.io/master/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://raw.githubusercontent.com/",
+  "minSdkVersion": 19,
+  "orientation": "landscape",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "appVersion": "1"
+}

@@ -1,0 +1,8 @@
+com/githubusercontent/raw/twa/LauncherActivity.java
+ com.githubusercontent.raw.twa.LauncherActivity
+com/githubusercontent/raw/twa/BuildConfig.java
+ com.githubusercontent.raw.twa.BuildConfig
+com/githubusercontent/raw/twa/Application.java
+ com.githubusercontent.raw.twa.Application
+com/githubusercontent/raw/twa/DelegationService.java
+ com.githubusercontent.raw.twa.DelegationService
