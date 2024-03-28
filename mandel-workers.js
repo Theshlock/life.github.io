@@ -589,25 +589,12 @@ function startRender( lneedRecompute, blocky )
 	needRedraw = 1;
 	needRecompute = lneedRecompute;
 	eventOccurred = 0;
-	start = performance.now();
-	rotationFrameStart = start;
+	rotationFrameStart = performance.now();
 	requestAnimationFrame( drawMandel );
 }
 
 function drawMandel()
 {
-	const iter_max = iterations;
-	const lcanvasWidth = canvasWidth;
-	const lcanvasHeight = canvasHeight;
-	const lscreenX = screenX;
-	const lscreenY = screenY;
-	const lzoom = zoom;
-
-	// Slow down colour cycling slightly
-	if(( rotating ) && ( performance.now() < rotationFrameStart + 15 )) {
-		requestAnimationFrame( drawMandel );
-		return 1;
-	}
 	rotationFrameStart = performance.now();
 
 	for( i=0; i<workers; i++ )
@@ -656,10 +643,9 @@ function drawMandel()
 			requestAnimationFrame( drawMandel );
 }
 
-drawMandel();
+
 contextM = mc.getContext('2d');
 contextM.font = "24px Arial";
-
 // Game Code
 var xRate = 0;
 var yRate = 0;
