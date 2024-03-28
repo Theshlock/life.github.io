@@ -68,9 +68,7 @@ finished[3] = 0;
 // Split image up into 4 parallel workers
 var workers = 4;
 var workersRunning = 0;
-
 const chunkHeight = canvasHeight / workers;
-
 var needRedraw = 0;
 var needRecompute = 1;
 var smooth = 0;
@@ -78,6 +76,7 @@ var smooth = 0;
 var mc = document.getElementById("mandelCanvas");
 mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"
 contextM = mc.getContext('2d');
+window.addEventListener("resize", function(){mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"});
 var viewportTag = document.getElementById("viewport");
 var mctx = mc.getContext("2d", { alpha: false } );
 
@@ -550,12 +549,8 @@ var onRenderEnded = function (e)
 
 // Instantiation
 
-window.addEventListener("resize", setViewport, false);
+window.addEventListener("resize", function(){mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"});
 
-function setViewport()
-{
-	mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"
-}
 
 function setup()
 {
