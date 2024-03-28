@@ -533,7 +533,7 @@ var onRenderEnded = function (e)
 
 needRedraw = 0;
 oneShotWorker = new Worker("mandel-compute.js");
-};
+
 // Set Alpha channel on the canvas to "solid" (not transparent)
 for( let i=0; i<workers; i++ ) {
 	for( let y=0; y<canvasHeight/workers; y++ ) {
