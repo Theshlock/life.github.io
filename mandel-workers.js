@@ -547,37 +547,30 @@ var onRenderEnded = function (e)
 
 };
 
-// Instantiation
 
-window.addEventListener("resize", function(){mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"});
-
-
-function setup()
-{
-	setViewport();
-	incrPalette();
-	needRedraw = 0;
-	oneShotWorker = new Worker("mandel-compute.js");
-	oneShotWorker.onmessage = onOneShotComputeEnded;
-	// Set Alpha channel on the canvas to "solid" (not transparent)
-	for( let i=0; i<workers; i++ ) {
-		for( let y=0; y<canvasHeight/workers; y++ ) {
-			for( let x=0; x<canvasWidth; x++ ) {
-				let pixelPos = (x+y*canvasWidth)*4;
-				mdSegment[i][pixelPos+3] = 255;
-			}
-		}
-		for( let y=0; y<coarseHeight/workers; y++ ) {
-			for( let x=0; x<coarseWidth; x++ ) {
-				let pixelPos = (x+y*coarseWidth)*4;
-				mdCoarseSegment[i][pixelPos+3] = 255;
-			}
+incrPalette();
+needRedraw = 0;
+oneShotWorker = new Worker("mandel-compute.js");
+oneShotWorker.onmessage = onOneShotComputeEnded;
+// Set Alpha channel on the canvas to "solid" (not transparent)
+for( let i=0; i<workers; i++ ) {
+	for( let y=0; y<canvasHeight/workers; y++ ) {
+		for( let x=0; x<canvasWidth; x++ ) {
+			let pixelPos = (x+y*canvasWidth)*4;
+			mdSegment[i][pixelPos+3] = 255;
 		}
 	}
-	eventTime = performance.now();
-	needRedraw = 1;
-	startRender( 1,1 );
+	for( let y=0; y<coarseHeight/workers; y++ ) {
+		for( let x=0; x<coarseWidth; x++ ) {
+			let pixelPos = (x+y*coarseWidth)*4;
+			mdCoarseSegment[i][pixelPos+3] = 255;
+		}
+	}
 }
+eventTime = performance.now();
+needRedraw = 1;
+startRender( 1,1 );
+
 
 function startRender( lneedRecompute, blocky )
 {
@@ -663,7 +656,6 @@ function drawMandel()
 			requestAnimationFrame( drawMandel );
 }
 
-setup();
 drawMandel();
 contextM = mc.getContext('2d');
 contextM.font = "24px Arial";
