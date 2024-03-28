@@ -37,7 +37,7 @@ blockSize[3] = 16;
 var colours = new Uint32Array(256);
 var vga = new Uint32Array(256);
 const paletteCount = 13;
-var currentPalette = -1;
+var currentPalette = 0;
 var currentRotation = 0;
 var rotating = 0;
 var renderCount = 0;
@@ -176,15 +176,6 @@ function decrPalette( event )
 	if( currentPalette < 0 )
 		currentPalette = paletteCount;
 	changePalette();
-}
-
-function incrPalette( event )
-{
-	currentPalette++;
-	if( currentPalette > paletteCount )
-		currentPalette = 0;
-	changePalette();
-
 }
 
 function changePalette()
@@ -468,14 +459,6 @@ function pointOnScreen( x,y )
 		return 0;
 }
 
-var onOneShotComputeEnded = function( e )
-{
-	var itersToPrint = e.data.oneShotResult;
-	if( itersToPrint == iterations )
-		itersToPrint = "n/a";
-	mandelText.textContent = itersToPrint;
-}
-
 var onComputeEnded = function (e)
 {
 	if( ! e.data.finished ) {
@@ -548,10 +531,9 @@ var onRenderEnded = function (e)
 };
 
 
-incrPalette();
 needRedraw = 0;
 oneShotWorker = new Worker("mandel-compute.js");
-oneShotWorker.onmessage = onOneShotComputeEnded;
+};
 // Set Alpha channel on the canvas to "solid" (not transparent)
 for( let i=0; i<workers; i++ ) {
 	for( let y=0; y<canvasHeight/workers; y++ ) {
@@ -589,14 +571,11 @@ function startRender( lneedRecompute, blocky )
 	needRedraw = 1;
 	needRecompute = lneedRecompute;
 	eventOccurred = 0;
-	rotationFrameStart = performance.now();
 	requestAnimationFrame( drawMandel );
 }
 
 function drawMandel()
 {
-	rotationFrameStart = performance.now();
-
 	for( i=0; i<workers; i++ )
 			needRedraw = 1;
 		if( needRedraw ) {
