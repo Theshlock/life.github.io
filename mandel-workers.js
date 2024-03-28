@@ -1,19 +1,17 @@
 /* mandel-workers.js
-   LIFE, the game.
    Copyright (c) 2019 - 2021 Greg Trounson greg@gart.nz
+   LIFE.
    Copyright (c) 2022 - 2024 Samuel Lockton lockton.sam@gmail.com
    Modification and distribution permitted under terms of the Affero GPL version 3
 */
 
-var levels = 8;
 var level = 1;
-var xy = [-1.999985881126867,0,-1.76877851023801,-0.00173889944794,-0.7428106660801,-0.126444300101,-0.77659226405,-0.136651039998,-0.17589070597346151,1.0866248318613803,-1.7442271377036995,-0.00004589744356394797,0.3855769028905207,0.1771223560991527,-0.5615337270936567,-0.641923504258619];
-var portalX = xy[0];
-var portalY = xy[1];
+var portalLocations = [-1.999985881126867,0,-1.76877851023801,-0.00173889944794,-0.7428106660801,-0.126444300101,-0.77659226405,-0.136651039998,-0.17589070597346151,1.0866248318613803,-1.7442271377036995,-0.00004589744356394797,0.3855769028905207,0.1771223560991527,-0.5615337270936567,-0.641923504258619];
+var portalX = portalLocations[0];
+var portalY = portalLocations[1];
 var portalDepth = 200000000000000000;
 var zoom = 100;
 var iterations = 1000;
-var mousePressed = 0;
 
 const canvasWidth = 1600;
 const canvasHeight = 1200;
@@ -26,7 +24,6 @@ const coarseHeight = canvasHeight/scaleFactor;
 var screenX = canvasWidth/2;
 var screenY = canvasHeight/2;
 
-var maxBlockSize = 8;
 var blockSize = new Uint8Array(16);
 blockSize[0] = 16;
 blockSize[1] = 16;
@@ -36,7 +33,6 @@ blockSize[3] = 16;
 // Packed 24-bit RGB colour palette (4th byte unused)
 var colours = new Uint32Array(256);
 var vga = new Uint32Array(256);
-const paletteCount = 13;
 var currentPalette = 0;
 var currentRotation = 0;
 var rotating = 0;
@@ -139,44 +135,6 @@ function killWorkers()
 
 // Create a Classic VGA palette
 vga = [0,43520,11141120,11184640,2852126720,2852170240,2857697280,2863311360,1431655680,1431699200,1442796800,1442840320,4283782400,4283825920,4294923520,4294967040,0,336860160,538976256,741092352,943208448,1162167552,1364283648,1633771776,1903259904,2189591040,2459079168,2728567296,3065427456,3419130624,3823362816,4294967040,65280,1090584320,2097217280,3187736320,4278255360,4278238720,4278222080,4278206720,4278190080,4282449920,4286382080,4290641920,4294901760,3204382720,2113863680,1107230720,16711680,16728320,16743680,16760320,16776960,12517120,8257280,4325120,2105409280,2659057408,3195928320,3749576448,4286447360,4286439168,4286430720,4286422528,4286414080,4288576768,4290673920,4292836608,4294933760,3758062848,3204414720,2667543808,2113895680,2113904128,2113912320,2113920768,2113928960,2111831808,2109669120,2107571968,3065446144,3350658816,3686203136,3954638592,4290182912,4290177792,4290173696,4290168576,4290164224,4291278336,4292589056,4293637632,4294948352,3959404032,3690968576,3355424256,3070211584,3070215936,3070221056,3070225152,3070230272,3068919552,3067870976,3066560256,28928,469790976,939553024,1426092288,1895854336,1895847168,1895839744,1895832576,1895825408,1897660416,1899495424,1901395968,1903230976,1433468928,946929664,477167616,7405568,7412736,7419904,7427328,7434496,5599488,3698944,1863936,943223040,1161326848,1429762304,1631088896,1899524352,1899520256,1899517184,1899513088,1899509760,1900361728,1901410304,1902196736,1903245312,1634809856,1433483264,1165047808,946944000,946947328,946951424,946954496,946958592,945910016,945123584,944075008,1364291840,1498509568,1632727296,1766945024,1901162752,1901160704,1901158656,1901156608,1901154560,1901678848,1902203136,1902727424,1903251712,1769033984,1634816256,1500598528,1366380800,1366382848,1366384896,1366386944,1366388992,1365864704,1365340416,1364816128,16640,268452096,536887552,805323008,1090535680,1090531328,1090527232,1090523136,1090519040,1091567616,1092616192,1093664768,1094778880,809566208,541130752,272695296,4259840,4263936,4268032,4272128,4276480,3162368,2113792,1065216,538984704,673202432,807420160,941637888,1092632832,1092630528,1092628480,1092626432,1092624384,1093148672,1093672960,1094197248,1094787072,943792128,809574400,675356672,541138944,541140992,541143040,541145088,541147392,540557568,540033280,539508992,741097728,808206592,875315456,1009533184,1093419264,1093417984,1093415936,1093414912,1093413888,1093676032,1093938176,1094462464,1094790144,1010904064,876686336,809577472,742468608,742469632,742470656,742472704,742473984,742146304,741622016,741359872,0,0,0,0,0,0,0,0,];
-
-function rotatePalette( steps )
-{
-	if( needRedraw )
-		return 1;
-	var i;
-	var j;
-	var lsteps;
-	if( steps == -1 )
-		lsteps = 1;
-	else
-		lsteps = steps;
-	for( j = 0; j<lsteps; j++ ) {
-		colours[254] = Math.floor(colours[0]);
-		if( ! lockJuliaColours )
-			juliaColours[254] = Math.floor(juliaColours[0]);
-		for( i=0; i<254; i++ ) {
-			colours[i] = Math.floor(colours[i+1]);
-			if( ! lockJuliaColours )
-				juliaColours[i] = Math.floor(juliaColours[i+1]);
-		}
-		currentRotation++;
-		if( currentRotation > 254 )
-			currentRotation = 0;
-	}
-	if( ! drawingJulia )
-		startJulia( 0, null,null );
-	if( steps == -1 )
-		startRender( 0,0 );
-}
-
-function decrPalette( event )
-{
-	currentPalette--;
-	if( currentPalette < 0 )
-		currentPalette = paletteCount;
-	changePalette();
-}
 
 function changePalette()
 {
@@ -447,7 +405,7 @@ function changePalette()
 	}
 	startRender( 0,0 );
 }
-
+changePalette();
 // Return whether or not a normalized point is in our viewport
 function pointOnScreen( x,y )
 {
@@ -522,7 +480,7 @@ var onRenderEnded = function (e)
 		coarseCtx.putImageData( mCoarseSegment[workerID], 0,lstartLine );
 		mctx.drawImage( coarse, 0, 0 );
 	}
-	if(( blockSize[workerID] >= 2 ) && ( ! eventOccurred ) && ( ! mousePressed )) {
+	if(( blockSize[workerID] >= 2 ) && ( ! eventOccurred )) {
 			needToRun[workerID] = 1;
 			blockSize[workerID]/=2;
 	} else
@@ -564,7 +522,7 @@ function startRender( lneedRecompute, blocky )
 		finished[i] = 0;
 		percentDone[i] = 0;
 		if( (lneedRecompute == 1 ) && ( blocky == 1 ))
-			blockSize[i] = maxBlockSize;
+			blockSize[i] = 8;
 		else
 			blockSize[i] = 1;
 	}
@@ -616,8 +574,6 @@ function drawMandel()
 				}
 			}
 		}
-		if(( workersRunning == 0 ) && ( rotating == 1 ))
-			rotatePalette(-1);
 		else
 			requestAnimationFrame( drawMandel );
 }
@@ -722,14 +678,14 @@ function gameloop() {
 		if( zoom > portalDepth ) {
 			if ( -800 < (((portalX-xnorm) * zoom + 800) / 2) && (((portalX-xnorm) * zoom + 800) / 2) < 800 && -1200 < (((portalY-ynorm) * zoom + 600) / 2) && (((portalX-xnorm) * zoom + 800) / 2) < 1200) {
 				level++;
-				if (level >= levels) {
+				if (level >= 8) {
 					totalTime = Date.now()-startTime-timePaused;
 					console.log('you win!')
 					victory()
 				}
 				zoom = 10;
-				portalX = xy[2*level];
-				portalY = xy[2*level + 1];
+				portalX = portalLocations[2*level];
+				portalY = portalLocations[2*level + 1];
 				xnorm = 0;
 				ynorm = 0;
 				xRate = 0;
