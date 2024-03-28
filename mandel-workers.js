@@ -54,6 +54,7 @@ var smooth = 0;
 var mc = document.getElementById("mandelCanvas");
 mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"
 contextM = mc.getContext('2d');
+contextM.font = "24px Arial";
 window.addEventListener("resize", function(){mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"});
 var viewportTag = document.getElementById("viewport");
 var mctx = mc.getContext("2d", { alpha: false } );
@@ -124,7 +125,7 @@ function changePalette()
 	var b;
 	currentRotation = 0;
 	switch( currentPalette ) {
-	case 0: // Purple/Orange/Aqua/Green on black
+	case 9: // Purple/Orange/Aqua/Green on black
 		for( i=0; i<255; i++ ) {
 			if( i < 32 ) {
 				r = i*4;
@@ -339,7 +340,7 @@ function changePalette()
 			colours[i] = (r<<24) + (g<<16) + (b<<8);
 		}
 		break;
-	case 9: // CGA 2
+	case 0: // CGA 2
 		for( i=0; i<255; i++ ) {
 			if( i % 4 == 0 )
 				colours[i] = 0;
@@ -546,8 +547,6 @@ function drawMandel()
 }
 
 
-contextM = mc.getContext('2d');
-contextM.font = "24px Arial";
 // Game Code
 var xRate = 0;
 var yRate = 0;
@@ -556,31 +555,20 @@ var down = 0;
 var left = 0;
 var right = 0;
 
-// Arrow Key Control
-
 window.onkeydown = function(event) {
-    if (event.keyCode === 39) {right = 1}; //right arrow
-    if (event.keyCode === 37) {left = 1}; //left arrow
-    if (event.keyCode === 38) {up = 1}; //up arrow
-    if (event.keyCode === 40) {down = 1}; //down arrow
+    if (event.keyCode === 39) {right = 1}; 
+    if (event.keyCode === 37) {left = 1}; 
+    if (event.keyCode === 38) {up = 1}; 
+    if (event.keyCode === 40) {down = 1}; 
 };
 
 window.onkeyup = function(event) {
-    if (event.keyCode === 39) {right = 0}; //right arrow
-    if (event.keyCode === 37) {left = 0}; //left arrow
-    if (event.keyCode === 38) {up = 0}; //up arrow
-    if (event.keyCode === 40) {down = 0}; //down arrow
+    if (event.keyCode === 39) {right = 0}; 
+    if (event.keyCode === 37) {left = 0}; 
+    if (event.keyCode === 38) {up = 0}; 
+    if (event.keyCode === 40) {down = 0}; 
 };
 
-// Mobile Touch Control
-
-// check if user is on mobile
-var touchDevice = ('ontouchstart' in document.documentElement);
-if (touchDevice) {
-
-}
-
-// touch functions
 document.ontouchstart = function(e){
 	tPSX = e.touches[0].clientX;
 	tPSY = e.touches[0].clientY;
@@ -610,9 +598,6 @@ document.ontouchend = function(e) {
 	right = 0;
 	up = 0;
 }
-
-// Game loop
-
 
 function gameloop() {
 	if (gamestate == "menu") {
@@ -673,30 +658,22 @@ function gameloop() {
 	window.requestAnimationFrame(gameloop);
 }
 
-contextM = mc.getContext('2d');
-contextM.font = "24px Arial";
-
-menu()
-startTime = Date.now();
-
-// Game states and transitional logic
-
 function menu() {
 	document.getElementById("pause").style.display = "none";
 	gamestate="menu";
-		xRate = 0;
-		yRate - 0;
-		xnorm = -1.76877851023801;
-		ynorm = -0.00173889944794;
-		zoom = 10;
-		screenX = canvasWidth/2;
-		screenY = canvasHeight/2;
+	xRate = 0;
+	yRate - 0;
+	xnorm = -1.76877851023801;
+	ynorm = -0.00173889944794;
+	zoom = 10;
+	screenX = canvasWidth/2;
+	screenY = canvasHeight/2;
 	document.getElementById("play").style.display = "none";
 	document.getElementById("menu").style.display = "flex";
 }
 
 function play() {
-	startTime = Date.now()
+	timer = Date.now()
 	gamestate = "playing";
 	document.getElementById("menu").style.display = "none";
 	document.getElementById("play").style.display = "flex";
@@ -719,8 +696,8 @@ function victory() {
 
 }
 
+menu()
 var timePaused = 0
 var time = Date.now();
 
-startRender(1,1);
 window.requestAnimationFrame(gameloop);
