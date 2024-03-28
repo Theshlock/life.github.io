@@ -17,8 +17,8 @@
   "maskableIconUrl": "https://raw.githubusercontent.com/Theshlock/life.github.io/master/icon.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
-    "path": "/Users/sam/Desktop/life.github.io/android.keystore",
-    "alias": "android"
+    "path": "/Users/sam/Desktop/life.github.io/upload_cert.der",
+    "alias": "upload"
   },
   "appVersionName": "1",
   "appVersionCode": 1,

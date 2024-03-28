@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/Users/sam/Desktop/life.github.io/app/build/intermediates/res/merged/release/xml_filepaths.xml.flat",
-        "source": "/Users/sam/Desktop/life.github.io/app/src/main/res/xml/filepaths.xml"
-    },
-    {
         "merged": "/Users/sam/Desktop/life.github.io/app/build/intermediates/res/merged/release/xml_shortcuts.xml.flat",
         "source": "/Users/sam/Desktop/life.github.io/app/src/main/res/xml/shortcuts.xml"
+    },
+    {
+        "merged": "/Users/sam/Desktop/life.github.io/app/build/intermediates/res/merged/release/xml_filepaths.xml.flat",
+        "source": "/Users/sam/Desktop/life.github.io/app/src/main/res/xml/filepaths.xml"
     },
     {
         "merged": "/Users/sam/Desktop/life.github.io/app/build/intermediates/res/merged/release/drawable-mdpi_splash.png.flat",
