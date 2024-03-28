@@ -77,6 +77,7 @@ var smooth = 0;
 
 var mc = document.getElementById("mandelCanvas");
 mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"
+contextM = mc.getContext('2d');
 var viewportTag = document.getElementById("viewport");
 var mctx = mc.getContext("2d", { alpha: false } );
 
@@ -669,7 +670,8 @@ function drawMandel()
 
 setup();
 drawMandel();
-
+contextM = mc.getContext('2d');
+contextM.font = "24px Arial";
 
 // Game Code
 var xRate = 0;
@@ -735,11 +737,7 @@ document.ontouchend = function(e) {
 }
 
 // Game loop
-var timePaused = 0
-var time = Date.now();
-contextM = mc.getContext('2d');
-contextM.fillStyle = 'green';
-contextM.font = "24px Arial";
+
 
 function gameloop() {
 	if (gamestate == "menu") {
@@ -800,6 +798,9 @@ function gameloop() {
 	window.requestAnimationFrame(gameloop);
 }
 
+contextM = mc.getContext('2d');
+contextM.font = "24px Arial";
+
 menu()
 startTime = Date.now();
 
@@ -843,6 +844,8 @@ function victory() {
 
 }
 
+var timePaused = 0
+var time = Date.now();
 
 startRender(1,1);
 window.requestAnimationFrame(gameloop);
