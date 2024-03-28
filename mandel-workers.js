@@ -12,46 +12,31 @@ var portalY = portalLocations[1];
 var portalDepth = 200000000000000000;
 var zoom = 100;
 var iterations = 1000;
-
 const canvasWidth = 1600;
 const canvasHeight = 1200;
 const scaleFactor = 2;
-
-// What you see most of the time is the coarse canvas
 const coarseWidth = canvasWidth/scaleFactor;
 const coarseHeight = canvasHeight/scaleFactor;
-
 var screenX = canvasWidth/2;
 var screenY = canvasHeight/2;
-
 var blockSize = new Uint8Array(16);
 blockSize[0] = 16;
 blockSize[1] = 16;
 blockSize[2] = 16;
 blockSize[3] = 16;
-
-// Packed 24-bit RGB colour palette (4th byte unused)
 var colours = new Uint32Array(256);
 var vga = new Uint32Array(256);
 var currentPalette = 0;
 var currentRotation = 0;
-var rotating = 0;
 var renderCount = 0;
 var destX = 0;
 var destY = 0;
-var destZoom = 0;
-var destIters = 0;
-
-// HTML Web Worker variables
 var computeWorker = new Array();
 var computeWorkerRunning = new Uint8Array(16);
 var renderWorker = new Array();
 var renderWorkerRunning = new Uint8Array(16);
 var needToRun = new Uint8Array(16);
 var finished = new Uint8Array(16);
-var timesTaken = new Array(20);
-var timesTakenSorted = new Array(20);
-var drawingJulia = 0;
 needToRun[0] = 0;
 needToRun[1] = 0;
 needToRun[2] = 0;
@@ -60,23 +45,18 @@ finished[0] = 0;
 finished[1] = 0;
 finished[2] = 0;
 finished[3] = 0;
-
-// Split image up into 4 parallel workers
 var workers = 4;
 var workersRunning = 0;
 const chunkHeight = canvasHeight / workers;
 var needRedraw = 0;
 var needRecompute = 1;
 var smooth = 0;
-
 var mc = document.getElementById("mandelCanvas");
 mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"
 contextM = mc.getContext('2d');
 window.addEventListener("resize", function(){mc.style = "width:" + window.innerWidth + "px; height:" + window.innerHeight + "px;"});
 var viewportTag = document.getElementById("viewport");
 var mctx = mc.getContext("2d", { alpha: false } );
-
-// Coarse off-screen canvas
 var coarse = document.createElement('canvas');
 var coarseCtx = coarse.getContext("2d", { alpha: false } );
 coarse.width = coarseWidth;
@@ -406,16 +386,6 @@ function changePalette()
 	startRender( 0,0 );
 }
 changePalette();
-// Return whether or not a normalized point is in our viewport
-function pointOnScreen( x,y )
-{
-	var destXscreen = x * zoom + screenX;
-	var destYscreen = y * zoom + screenY;
-	if( ( destXscreen > 0 ) && ( destXscreen < canvasWidth ) && ( destYscreen > 0 ) && ( destYscreen < canvasHeight ) )
-		return 1;
-	else
-		return 0;
-}
 
 var onComputeEnded = function (e)
 {
@@ -514,9 +484,6 @@ startRender( 1,1 );
 
 function startRender( lneedRecompute, blocky )
 {
-	if( lneedRecompute ) {
-		rotating = 0;
-	}
 	for( i=0; i<workers; i++ ) {
 		needToRun[i] = 1;
 		finished[i] = 0;
