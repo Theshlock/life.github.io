@@ -125,7 +125,7 @@ function changePalette()
 	var b;
 	currentRotation = 0;
 	switch( currentPalette ) {
-	case 9: // Purple/Orange/Aqua/Green on black
+	case 7: // Purple/Orange/Aqua/Green on black
 		for( i=0; i<255; i++ ) {
 			if( i < 32 ) {
 				r = i*4;
@@ -300,7 +300,7 @@ function changePalette()
 			colours[i] = (r<<24) + (g<<16) + (b<<8);
 		}
 		break;
-	case 7: // Secondary colours (C,M,Y)
+	case 0: // Secondary colours (C,M,Y)
 		for( i=0; i<255; i++ ) {
 			if( i < 85 ) {
 				r = 0 + i*3;
@@ -340,7 +340,7 @@ function changePalette()
 			colours[i] = (r<<24) + (g<<16) + (b<<8);
 		}
 		break;
-	case 0: // CGA 2
+	case 9: // CGA 2
 		for( i=0; i<255; i++ ) {
 			if( i % 4 == 0 )
 				colours[i] = 0;
