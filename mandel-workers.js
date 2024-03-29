@@ -632,10 +632,14 @@ function gameloop() {
 				bonus += multiplier
 				contextM.fillText("+" + multiplier,500,500);
 				if (level >= 1) {
+					startRender(1,1);
 					totalTime = Date.now()-startTime-timePaused;
-					contextM.fillText("You win!/n---------/ntotal time:" + totalTime,300,500);
+					contextM.fillText("You win" + totalTime,300,200);
+					contextM.fillText("____________________",300,220);
+					contextM.fillText("total time:" + totalTime,300,260);
 					console.log('you win!')
 					victory()
+
 				}
 				zoom = 10;
 				portalX = portalLocations[2*level];
@@ -655,15 +659,16 @@ function gameloop() {
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ), (((portalY-ynorm) * zoom + 600) / 2 ) , 10, 10);
 		
 	} else if (gamestate == "victory") {
+		contextM.fillText("You win!/n---------/ntotal time:" + totalTime,300,500);
 		console.log('you win');
 	}
 	window.requestAnimationFrame(gameloop);
 }
+
 var timePaused = 0
 var time = Date.now();
 bonus = 0
 window.requestAnimationFrame(gameloop);
-
 
 //State Control
 function menu() {
@@ -680,7 +685,6 @@ function menu() {
 	document.getElementById("menu").style.display = "flex";
 	
 }
-
 function play() {
 	timer = Date.now()
 	gamestate = "playing";
@@ -707,5 +711,4 @@ function resume() {
 function victory() {
 	gamestate = victory
 }
-
 menu()
