@@ -670,6 +670,7 @@ function menu() {
 	screenY = canvasHeight/2;
 	document.getElementById("play").style.display = "none";
 	document.getElementById("menu").style.display = "flex";
+	startTime = Date.now()
 }
 
 function play() {
