@@ -481,8 +481,6 @@ for( let i=0; i<workers; i++ ) {
 eventTime = performance.now();
 needRedraw = 1;
 startRender( 1,1 );
-
-
 function startRender( lneedRecompute, blocky )
 {
 	for( i=0; i<workers; i++ ) {
@@ -573,6 +571,7 @@ document.ontouchstart = function(e){
 	tPSX = e.touches[0].clientX;
 	tPSY = e.touches[0].clientY;
 }
+
 document.ontouchmove = function(e){
 	tPMX = e.touches[0].clientX;
 	tPMY = e.touches[0].clientY;
@@ -599,6 +598,7 @@ document.ontouchend = function(e) {
 	up = 0;
 }
 
+//State
 function gameloop() {
 	if (gamestate == "menu") {
 		zoom *= 1.01;
@@ -626,7 +626,6 @@ function gameloop() {
 		screenX = Math.round(-xnorm * zoom + canvasWidth/2);
 		screenY = Math.round(-ynorm * zoom + canvasHeight/2);
 		startRender(1,1);
-
 		if( zoom > portalDepth ) {
 			if ( -800 < (((portalX-xnorm) * zoom + 800) / 2) && (((portalX-xnorm) * zoom + 800) / 2) < 800 && -1200 < (((portalY-ynorm) * zoom + 600) / 2) && (((portalX-xnorm) * zoom + 800) / 2) < 1200) {
 				level++;
@@ -660,7 +659,13 @@ function gameloop() {
 	}
 	window.requestAnimationFrame(gameloop);
 }
+var timePaused = 0
+var time = Date.now();
+bonus = 0
+window.requestAnimationFrame(gameloop);
 
+
+//State Control
 function menu() {
 	document.getElementById("pause").style.display = "none";
 	gamestate="menu";
@@ -673,7 +678,7 @@ function menu() {
 	screenY = canvasHeight/2;
 	document.getElementById("play").style.display = "none";
 	document.getElementById("menu").style.display = "flex";
-	window.requestAnimationFrame(gameloop);
+	
 }
 
 function play() {
@@ -686,7 +691,6 @@ function play() {
 	var timePaused = 0
 	var time = Date.now();
 	bonus = 0
-	window.requestAnimationFrame(gameloop);
 }
 function pause() {
 	gamestate = "paused"
@@ -705,5 +709,3 @@ function victory() {
 }
 
 menu()
-
-
