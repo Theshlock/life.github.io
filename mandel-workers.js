@@ -555,9 +555,9 @@ var right = 0;
 
 window.onkeydown = function(event) {
     if (event.keyCode === 39) {right = 1}; 
-    if (event.keyCode === 37) {left = 1}; 
+    if (event.keyCode === 37) {left = -1}; 
     if (event.keyCode === 38) {up = 1}; 
-    if (event.keyCode === 40) {down = 1}; 
+    if (event.keyCode === 40) {down = -1}; 
 };
 
 window.onkeyup = function(event) {
@@ -569,22 +569,22 @@ window.onkeyup = function(event) {
 
 document.ontouchstart = function(e){
 	right = (e.touches[0].clientX - window.innerWidth) / window.innerWidth;
-	down = (e.touches[0].clientY - window.innerHeight) / window.innerHeight;
+	up = (e.touches[0].clientY - window.innerHeight) / window.innerHeight;
 }
 
 document.ontouchmove = function(e){
 	right = (e.touches[0].clientX - window.innerWidth) / window.innerWidth;
-	down = (e.touches[0].clientY - window.innerHeight) / window.innerHeight;
+	up = (e.touches[0].clientY - window.innerHeight) / window.innerHeight;
 }
 
 document.ontouchcancel = function(e) {
 	right = 0;
-	down = 0;
+	up = 0;
 }
 
 document.ontouchend = function(e) {
 	right = 0;
-	down = 0;
+	up = 0;
 }
 
 //State
@@ -600,9 +600,9 @@ function gameloop() {
 		contextM.fillStyle = 'white';
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ), (((portalY-ynorm) * zoom + 600) / 2 ) , 10, 10);
 		contextM.fillRect( 400, 300 , 10, 10);
-		xRate += (right - left) * ( Date.now() - time ) / 100;
+		xRate += (right) * ( Date.now() - time ) / 100;
 		xRate *= 0.99
-		yRate += (down - up) * ( Date.now() - time ) / 100;
+		yRate += (up) * ( Date.now() - time ) / 100;
 		yRate *= 0.99
 		xnorm += ( xRate / zoom ) * ( Date.now() - time)  / 10;
 		ynorm += ( yRate / zoom ) * ( Date.now() - time ) / 10;
