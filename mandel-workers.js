@@ -634,9 +634,11 @@ function gameloop() {
 				if (level >= 1) {
 					startRender(1,1);
 					totalTime = Date.now()-startTime-timePaused;
-					contextM.fillText("You win" + totalTime,300,200);
+					contextM.fillText("You win",300,200);
 					contextM.fillText("____________________",300,220);
-					contextM.fillText("total time:" + totalTime,300,260);
+					contextM.fillText("total time: " + totalTime/1000 + "s",300,260);
+					contextM.fillText("bonus: -" + bonus,300,320);
+					contextM.fillText("final time: " + totalTime/1000 - bonus,300,380);
 					console.log('you win!')
 					victory()
 
