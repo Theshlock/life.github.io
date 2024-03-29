@@ -630,8 +630,11 @@ function gameloop() {
 		if( zoom > portalDepth ) {
 			if ( -800 < (((portalX-xnorm) * zoom + 800) / 2) && (((portalX-xnorm) * zoom + 800) / 2) < 800 && -1200 < (((portalY-ynorm) * zoom + 600) / 2) && (((portalX-xnorm) * zoom + 800) / 2) < 1200) {
 				level++;
-				if (level >= 8) {
+				bonus += multiplier
+				contextM.fillText("+" + multiplier,500,500);
+				if (level >= 1) {
 					totalTime = Date.now()-startTime-timePaused;
+					contextM.fillText("You win!/n---------/ntotal time:" + totalTime,300,500);
 					console.log('you win!')
 					victory()
 				}
@@ -652,7 +655,7 @@ function gameloop() {
 		contextM.fillStyle = 'black';
 		contextM.fillRect( (((portalX-xnorm) * zoom + 800) / 2 ), (((portalY-ynorm) * zoom + 600) / 2 ) , 10, 10);
 		
-	} else if (gamestate == "game complete") {
+	} else if (gamestate == "victory") {
 		console.log('you win');
 	}
 	window.requestAnimationFrame(gameloop);
@@ -694,7 +697,7 @@ function resume() {
 	document.getElementById("play").style.display = "flex";
 }
 function victory() {
-
+	gamestate = victory
 }
 
 menu()
