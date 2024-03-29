@@ -631,7 +631,7 @@ function gameloop() {
 				level++;
 				bonus += multiplier
 				contextM.fillText("+" + multiplier,500,500);
-				if (level >= 1) {
+				if (level >= 8) {
 					startRender(1,1);
 					totalTime = Date.now()-startTime-timePaused;
 					contextM.fillText("You win",300,200);
