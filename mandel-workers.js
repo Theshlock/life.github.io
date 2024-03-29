@@ -568,13 +568,13 @@ window.onkeyup = function(event) {
 };
 
 document.ontouchstart = function(e){
-	right = (e.touches[0].clientX - window.innerWidth) / (window.innerWidth / 2);
-	up = (e.touches[0].clientY - window.innerHeight) / (window.innerHeight / 2);
+	right = (e.touches[0].clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+	up = (e.touches[0].clientY - window.innerHeight / 2) / (window.innerHeight / 2);
 }
 
 document.ontouchmove = function(e){
-	right = (e.touches[0].clientX - window.innerWidth) / (window.innerWidth / 2);
-	up = (e.touches[0].clientY - window.innerHeight) / (window.innerHeight / 2);
+	right = (e.touches[0].clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+	up = (e.touches[0].clientY - window.innerHeight / 2) / (window.innerHeight / 2);
 }
 
 document.ontouchcancel = function(e) {
