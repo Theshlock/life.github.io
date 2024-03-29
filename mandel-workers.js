@@ -568,8 +568,8 @@ window.onkeyup = function(event) {
 };
 
 document.ontouchstart = function(e){
-	right = (e.touches[0].clientX - window.innerWidth) / window.innerWidth;
-	up = (e.touches[0].clientY - window.innerHeight) / window.innerHeight;
+	right = (e.touches[0].clientX - window.innerWidth / 2) / window.innerWidtzh;
+	up = (e.touches[0].clientY - window.innerHeight / 2) / window.innerHeight ;
 }
 
 document.ontouchmove = function(e){
