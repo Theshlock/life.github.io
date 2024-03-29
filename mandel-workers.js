@@ -556,8 +556,8 @@ var right = 0;
 window.onkeydown = function(event) {
     if (event.keyCode === 39) {right = 1}; 
     if (event.keyCode === 37) {right = -1}; 
-    if (event.keyCode === 38) {up = 1}; 
-    if (event.keyCode === 40) {up = -1}; 
+    if (event.keyCode === 38) {up = -1}; 
+    if (event.keyCode === 40) {up = 1}; 
 };
 
 window.onkeyup = function(event) {
