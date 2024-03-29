@@ -673,7 +673,7 @@ function menu() {
 	screenY = canvasHeight/2;
 	document.getElementById("play").style.display = "none";
 	document.getElementById("menu").style.display = "flex";
-	startTime = Date.now()
+	window.requestAnimationFrame(gameloop);
 }
 
 function play() {
@@ -682,7 +682,11 @@ function play() {
 	document.getElementById("menu").style.display = "none";
 	document.getElementById("play").style.display = "flex";
 	zoom = 10;
-
+	startTime = Date.now()
+	var timePaused = 0
+	var time = Date.now();
+	bonus = 0
+	window.requestAnimationFrame(gameloop);
 }
 function pause() {
 	gamestate = "paused"
@@ -701,7 +705,5 @@ function victory() {
 }
 
 menu()
-var timePaused = 0
-var time = Date.now();
 
-window.requestAnimationFrame(gameloop);
+
