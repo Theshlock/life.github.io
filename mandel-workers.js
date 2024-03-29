@@ -561,10 +561,8 @@ window.onkeydown = function(event) {
 };
 
 window.onkeyup = function(event) {
-    if (event.keyCode === 39) {right = 0}; 
-    if (event.keyCode === 37) {left = 0}; 
-    if (event.keyCode === 38) {up = 0}; 
-    if (event.keyCode === 40) {down = 0}; 
+    right = 0; 
+ 	up = 0; 
 };
 
 document.ontouchstart = function(e){
