@@ -608,7 +608,7 @@ function gameloop() {
 		contextM.fillText("level: " + level + "/8",500,550);
 		contextM.fillText("zoom mult.: " + Math.round(multiplier) ,300,550);
 		contextM.fillText((Date.now()-startTime-timePaused)/1000 + "s",100,550);
-		contextM.fillText("-" + bonus,100,500);
+		contextM.fillText("-" + Math.round(bonus*10000)/10000,100,500);
 		zoom *= 1 + 0.01 * multiplier;
 		time = Date.now();
 		screenX = Math.round(-xnorm * zoom + canvasWidth/2);
