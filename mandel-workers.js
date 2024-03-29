@@ -568,34 +568,23 @@ window.onkeyup = function(event) {
 };
 
 document.ontouchstart = function(e){
-	tPSX = e.touches[0].clientX;
-	tPSY = e.touches[0].clientY;
+	right = (e.touches[0].clientX - window.innerWidth) / window.innerWidth;
+	down = (e.touches[0].clientY - window.innerHeight) / window.innerHeight;
 }
 
 document.ontouchmove = function(e){
-	tPMX = e.touches[0].clientX;
-	tPMY = e.touches[0].clientY;
-	distanceofthevector = ((tPMX - tPSX)**2 + (tPMY - tPSY)**2)**0.5;
-	right = (tPMX - tPSX) / distanceofthevector;
-	down = (tPMY - tPSY) / distanceofthevector ;
+	right = (e.touches[0].clientX - window.innerWidth) / window.innerWidth;
+	down = (e.touches[0].clientY - window.innerHeight) / window.innerHeight;
 }
 
 document.ontouchcancel = function(e) {
-	tPSX = 0
-	tPSY = 0
-	tPMX = 0
-	tPMY = 0
 	right = 0;
-	up = 0;
+	down = 0;
 }
 
 document.ontouchend = function(e) {
-	tPSX = 0
-	tPSY = 0
-	tPMX = 0
-	tPMY = 0
 	right = 0;
-	up = 0;
+	down = 0;
 }
 
 //State
@@ -621,6 +610,7 @@ function gameloop() {
 		contextM.fillText("level: " + level + "/8",500,550);
 		contextM.fillText("zoom mult.: " + Math.round(multiplier) ,300,550);
 		contextM.fillText((Date.now()-startTime-timePaused)/1000 + "s",100,550);
+		contextM.fillText("-" + bonus,100,500);
 		zoom *= 1 + 0.01 * multiplier;
 		time = Date.now();
 		screenX = Math.round(-xnorm * zoom + canvasWidth/2);
@@ -638,7 +628,7 @@ function gameloop() {
 					contextM.fillText("____________________",300,220);
 					contextM.fillText("total time: " + totalTime/1000 + "s",300,260);
 					contextM.fillText("bonus: -" + bonus,300,320);
-					contextM.fillText("final time: " + totalTime/1000 - bonus,300,380);
+					contextM.fillText("final time: " + totalTime/1000 - Math.round(bonus*10000)/10000,300,380);
 					console.log('you win!')
 					victory()
 
