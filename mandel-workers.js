@@ -618,7 +618,7 @@ function gameloop() {
 			if ( -800 < (((portalX-xnorm) * zoom + 800) / 2) && (((portalX-xnorm) * zoom + 800) / 2) < 800 && -1200 < (((portalY-ynorm) * zoom + 600) / 2) && (((portalX-xnorm) * zoom + 800) / 2) < 1200) {
 				level++;
 				bonus += multiplier
-				contextM.fillText("+" + multiplier,500,500);
+				contextM.fillText("-" + multiplier,500,500);
 				if (level >= 8) {
 					startRender(1,1);
 					totalTime = Date.now()-startTime-timePaused;
